@@ -3,88 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Myth Facility Logs</title>
+  <title>Archive 9 - Myth Log</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Myth Research Facility</h1>
-    <p class="subheading">Official Archive Portal</p>
+    <h1>Archive 9 Myth Log</h1>
   </header>
 
   <main>
-    <!-- Broadcast Section -->
-    <section id="broadcast">
-      <h2>Live Facility Broadcast</h2>
-      <p id="broadcast-text">Initializing broadcast...</p>
-      <button id="start-broadcast">Play Broadcast</button>
+    <!-- Admin Login -->
+    <section id="login-section">
+      <h2>Admin Login</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="login-btn">Login</button>
+      <p id="login-message"></p>
     </section>
 
-    <!-- Hidden Clues Section -->
-    <section id="clues">
-      <h2>Confidential Logs</h2>
-      <p class="hidden-clue" id="clue1">Archive-9 is not telling the full truth.</p>
-      <p class="hidden-clue" id="clue2">Containment breach recorded on Level 3.</p>
-      <button class="reveal-btn" data-target="clue1">Access Log 1</button>
-      <button class="reveal-btn" data-target="clue2">Access Log 2</button>
+    <!-- Myth Input Section (hidden until login) -->
+    <section id="myth-input-section" style="display:none;">
+      <h2>Add New Myth</h2>
+      <input type="text" id="myth-name" placeholder="NAME">
+      <input type="text" id="myth-info" placeholder="INFO">
+      <input type="text" id="myth-appearance" placeholder="APPEARANCE">
+      <button id="add-myth-btn">Add Myth</button>
     </section>
 
-    <!-- Countdown Timer -->
-    <section id="countdown">
-      <h2>Next Facility Update</h2>
-      <p id="timer">Calculating...</p>
+    <!-- Myth Log Display -->
+    <section id="myth-log">
+      <h2>Myth Log</h2>
+      <div id="myths-container">
+        <!-- Myths will appear here -->
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Myth Facility Project</p>
+    <p>© 2025 Archive 9</p>
   </footer>
 
-  <script>
-    // Reveal hidden clues
-    document.querySelectorAll('.reveal-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const clue = document.getElementById(btn.dataset.target);
-        clue.classList.add('revealed');
-      });
-    });
-
-    // Countdown timer
-    const updateDate = new Date('2025-12-15T18:00:00'); // adjust as needed
-    const timerEl = document.getElementById('timer');
-
-    setInterval(() => {
-      const now = new Date();
-      const diff = updateDate - now;
-      if (diff <= 0) {
-        timerEl.textContent = "Update is live!";
-      } else {
-        const days = Math.floor(diff / (1000*60*60*24));
-        const hours = Math.floor((diff / (1000*60*60)) % 24);
-        const minutes = Math.floor((diff / (1000*60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-        timerEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      }
-    }, 1000);
-
-    // Simulated broadcast (text-based)
-    const broadcastMessages = [
-      "Attention staff: Containment protocols are in effect.",
-      "All personnel must report to their assigned stations.",
-      "Unidentified activity detected in Sector 7.",
-      "Archive-9 data classified. Do not access without clearance."
-    ];
-    let broadcastIndex = 0;
-
-    document.getElementById('start-broadcast').addEventListener('click', () => {
-      const textEl = document.getElementById('broadcast-text');
-      if (broadcastIndex < broadcastMessages.length) {
-        textEl.textContent = broadcastMessages[broadcastIndex];
-        broadcastIndex++;
-      } else {
-        textEl.textContent = "End of broadcast.";
-      }
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>

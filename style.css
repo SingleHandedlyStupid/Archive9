@@ -16,19 +16,12 @@ main {
   padding: 2em;
 }
 
-section {
-  margin-bottom: 2em;
-  padding: 1em;
-  border: 1px solid #45a29e;
-  border-radius: 8px;
-}
-
-input {
+input, textarea {
   display: block;
   margin: 0.5em 0;
   padding: 0.5em;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 button {
@@ -39,13 +32,24 @@ button {
   cursor: pointer;
   border-radius: 4px;
   font-weight: bold;
+  margin-top: 0.5em;
 }
 
 button:hover {
   background-color: #66fcf1;
 }
 
-.myth-entry {
-  padding: 0.5em;
-  border-bottom: 1px solid #45a29e;
+.tab {
+  border: 1px solid #45a29e;
+  border-radius: 8px;
+  padding: 1em;
+  margin-top: 1em;
+}
+
+nav {
+  margin: 1em 0;
+}
+
+nav button {
+  margin-right: 0.5em;
 }

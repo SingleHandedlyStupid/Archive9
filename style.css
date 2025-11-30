@@ -53,3 +53,8 @@ nav {
 nav button {
   margin-right: 0.5em;
 }
+
+.myth-entry {
+  padding: 0.5em;
+  border-bottom: 1px solid #45a29e;
+}

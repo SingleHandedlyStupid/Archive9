@@ -136,7 +136,12 @@ function saveRequestData() {
 }
 
 function isNSFW(text) {
-    const bannedWords = ["nsfw","sex","porn","xxx","nude"];
+    const bannedWords = [
+  "nsfw","sex","porn","xxx","nude","naked","erotic","adult","fetish","bdsm",
+  "fuck","shit","bitch","cock","dick","pussy","ass","clit","boobs","tits",
+  "cum","slut","whore","rape","anal","oral","masturbate","orgasm","sexy",
+  "pornhub","xvideos","xnxx","onlyfans"
+];
     text = text.toLowerCase();
     return bannedWords.some(word => text.includes(word));
 }

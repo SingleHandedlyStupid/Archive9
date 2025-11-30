@@ -1,6 +1,6 @@
 // === ADMIN LOGIN ===
 const adminUser = "admin";
-const adminPass = "password123"; // change this
+const adminPass = "password123";
 
 const loginSection = document.getElementById('login-section');
 const loginBtn = document.getElementById('login-btn');
@@ -22,7 +22,7 @@ loginBtn.addEventListener('click', () => {
     }
 });
 
-// === TAB FUNCTIONALITY ===
+// === ADMIN PANEL TABS ===
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(tab => tab.style.display = "none");
@@ -63,7 +63,6 @@ addBtn.addEventListener('click', () => {
     }
 });
 
-// Display myths initially
 displayMyths();
 
 // === FACILITY LOGS ===
@@ -74,4 +73,52 @@ logsTextarea.value = localStorage.getItem('facilityLogs') || "";
 saveLogsBtn.addEventListener('click', () => {
     localStorage.setItem('facilityLogs', logsTextarea.value);
     alert("Logs saved.");
+});
+
+// === VISITOR REQUEST SYSTEM ===
+const requestBtn = document.getElementById('send-request-btn');
+const requestText = document.getElementById('request-text');
+const requestMsg = document.getElementById('request-msg');
+
+let requestData = JSON.parse(localStorage.getItem('requestData')) || {};
+
+function saveRequestData() {
+    localStorage.setItem('requestData', JSON.stringify(requestData));
+}
+
+function isNSFW(text) {
+    const bannedWords = ["nsfw","sex","porn","xxx","nude"];
+    text = text.toLowerCase();
+    return bannedWords.some(word => text.includes(word));
+}
+
+requestBtn.addEventListener('click', () => {
+    const userKey = "visitor"; 
+    const now = Date.now();
+
+    if(requestData[userKey] && requestData[userKey].blockedUntil && now < requestData[userKey].blockedUntil){
+        const remaining = Math.ceil((requestData[userKey].blockedUntil - now)/(1000*60*60*24));
+        requestMsg.textContent = `You are blocked for ${remaining} more day(s).`;
+        return;
+    }
+
+    if(isNSFW(requestText.value)){
+        requestData[userKey] = {blockedUntil: now + 7*24*60*60*1000};
+        saveRequestData();
+        requestMsg.textContent = "NSFW content detected! You are blocked for 1 week.";
+        requestText.value = "";
+        return;
+    }
+
+    if(requestData[userKey] && requestData[userKey].lastRequest && now - requestData[userKey].lastRequest < 24*60*60*1000){
+        requestMsg.textContent = "You can only make 1 request per day.";
+        return;
+    }
+
+    requestData[userKey] = {lastRequest: now};
+    saveRequestData();
+    requestMsg.textContent = "Request sent successfully!";
+    requestText.value = "";
+
+    console.log("Request submitted:", requestText.value);
 });

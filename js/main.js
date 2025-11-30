@@ -1,6 +1,6 @@
 // === ADMIN LOGIN WITH SESSION ===
 const adminUser = "valerafon2012";
-const adminPass = "1987";
+const adminPass = "archive9";
 
 const loginSection = document.getElementById('login-section');
 const loginBtn = document.getElementById('login-btn');
